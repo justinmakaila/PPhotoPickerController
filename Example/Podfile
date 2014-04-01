@@ -1,0 +1,7 @@
+pod "PPhotoPickerController", :path => "../PPhotoPickerController.podspec"
+
+target "Demo" do
+end
+
+target "DemoTests" do
+end
