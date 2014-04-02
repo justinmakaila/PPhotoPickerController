@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PhotoEditorViewController">
+            <connections>
+                <outlet property="cancelButton" destination="K2o-jU-Tce" id="cn6-dV-KgD"/>
+                <outlet property="cropWindow" destination="H6c-M3-PQg" id="ssW-aj-qLb"/>
+                <outlet property="selectButton" destination="IOb-8i-hh4" id="Fdl-ce-iML"/>
+                <outlet property="view" destination="1" id="3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H6c-M3-PQg" customClass="XWCropWindow">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" red="0.40000000000000002" green="0.63137254899999995" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Jo-cm-2Gp">
+                    <rect key="frame" x="0.0" y="436" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <items>
+                        <barButtonItem title="Cancel" id="K2o-jU-Tce">
+                            <color key="tintColor" red="0.4279718018" green="0.029822266430000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="cancelAction:" destination="-1" id="y4k-bx-v3k"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="CoX-DB-bPO"/>
+                        <barButtonItem title="Select" id="IOb-8i-hh4">
+                            <color key="tintColor" red="0.4279718018" green="0.029822266430000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="doneAction:" destination="-1" id="bOd-2U-Tvf"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                </toolbar>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="H6c-M3-PQg" firstAttribute="top" secondItem="1" secondAttribute="top" id="0qh-o2-84M"/>
+                <constraint firstItem="H6c-M3-PQg" firstAttribute="bottom" secondItem="4Jo-cm-2Gp" secondAttribute="top" id="1wX-j5-hf8"/>
+                <constraint firstItem="4Jo-cm-2Gp" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="KHS-s1-fby"/>
+                <constraint firstAttribute="bottom" secondItem="4Jo-cm-2Gp" secondAttribute="bottom" id="Nq3-ei-EP7"/>
+                <constraint firstAttribute="trailing" secondItem="H6c-M3-PQg" secondAttribute="trailing" id="UHL-wk-qup"/>
+                <constraint firstItem="H6c-M3-PQg" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="Ybz-mK-xuj"/>
+                <constraint firstAttribute="trailing" secondItem="4Jo-cm-2Gp" secondAttribute="trailing" id="ydh-TF-lMu"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
