@@ -10,7 +10,6 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "justinmakaila" => "justinmakaila@gmail.com" }
   s.source           = { :git => "https://github.com/justinmakaila/PPhotoPickerController.git", :tag => s.version.to_s }
-  s.social_media_url = 'https://twitter.com/EXAMPLE'
   s.platform     = :ios, '7.0'
   s.requires_arc = true
   s.source_files = 'Classes'
