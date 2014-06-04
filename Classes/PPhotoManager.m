@@ -11,7 +11,9 @@
 #import "PPhotoManager.h"
 #import "PEditPhotoViewController.h"
 
-@interface PPhotoManager () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, PPhotoCropViewControllerDelegate>
+@interface PPhotoManager () <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, PPhotoCropViewControllerDelegate> {
+    UIStatusBarStyle defaultStatusBarStyle;
+}
 
 @property (weak, nonatomic) UIViewController *viewController;
 
@@ -28,6 +30,8 @@ static NSString *CancelTitle    = @"Cancel";
     if (self) {
         self.viewController = viewController;
         self.delegate = delegate;
+        
+        defaultStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
     }
     
     return self;
@@ -57,6 +61,20 @@ static NSString *CancelTitle    = @"Cancel";
     }
 }
 
+#pragma mark - UIStatusBarStyle Helpers
+
+- (void)setStatusBarStyleForImagePickerControllerAnimated:(BOOL)animated {
+    [self setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
+}
+
+- (void)resetStatusBarStyleAnimated:(BOOL)animated {
+    [self setStatusBarStyle:defaultStatusBarStyle animated:animated];
+}
+
+- (void)setStatusBarStyle:(UIStatusBarStyle)style animated:(BOOL)animated {
+    [[UIApplication sharedApplication] setStatusBarStyle:style animated:animated];
+}
+
 #pragma mark - UIImagePicker Delegate
 
 - (void)showImagePicker:(UIImagePickerControllerSourceType)imagePickerSource {
@@ -65,12 +83,18 @@ static NSString *CancelTitle    = @"Cancel";
     imagePickerController.allowsEditing = NO;
     imagePickerController.delegate = self;
     
+    imagePickerController.navigationBar.tintColor = [UIColor blackColor];
+    imagePickerController.navigationBar.barTintColor = [UIColor whiteColor];
+
+    
     if (imagePickerSource == UIImagePickerControllerSourceTypeCamera) {
         imagePickerController.showsCameraControls = YES;
     }
     
     if ([UIImagePickerController isSourceTypeAvailable:imagePickerSource]) {
-        [_viewController presentViewController:imagePickerController animated:YES completion:nil];
+        [_viewController presentViewController:imagePickerController animated:YES completion:^{
+            [self setStatusBarStyleForImagePickerControllerAnimated:YES];
+        }];
     }
 }
 
@@ -92,8 +116,16 @@ static NSString *CancelTitle    = @"Cancel";
         [picker pushViewController:photoEditController animated:YES];
         [picker setNavigationBarHidden:YES animated:NO];
     }failureBlock:^(NSError *error) {
-        NSLog(@"Failed to get asset from library");
+        [[[UIAlertView alloc] initWithTitle:@"Sorry!"
+                                    message:@"Something went wrong while trying to get your profile picture. Please try again."
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles:nil] show];
     }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self resetStatusBarStyleAnimated:YES];
 }
 
 #pragma mark - PPhotoCropController Delegate
@@ -110,7 +142,7 @@ static NSString *CancelTitle    = @"Cancel";
 
 - (void)dismissCropController {
     [_viewController dismissViewControllerAnimated:YES completion:nil];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [self resetStatusBarStyleAnimated:YES];
 }
 
 @end
