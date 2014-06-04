@@ -136,7 +136,10 @@ static NSString *CancelTitle    = @"Cancel";
 }
 
 - (void)photoCropControllerDidCancel:(PPhotoCropViewController *)controller {
-    [_delegate photoManagerDidCancel:self];
+    if ([_delegate respondsToSelector:@selector(photoManagerDidCancel:)]) {
+        [_delegate photoManagerDidCancel:self];
+    }
+    
     [self dismissCropController];
 }
 
