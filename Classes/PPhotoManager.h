@@ -24,6 +24,8 @@
 @protocol PPhotoManagerDelegate <NSObject>
 
 - (void)photoManager:(PPhotoManager*)manager didSelectImage:(UIImage*)image;
+
+@optional
 - (void)photoManagerDidCancel:(PPhotoManager*)manager;
 
 @end
